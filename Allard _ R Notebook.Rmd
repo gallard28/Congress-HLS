@@ -1,11 +1,32 @@
 ---
-title: "An Exploration of Congressional Inaction in Protecting Privacy"  
-author: Grant Allard
-
+title: "An Exploration of Congressional Inaction in Protecting Privacy"
+author: "Grant Allard"
 output:
   html_document:
     df_print: paged
+  pdf_document: default
 ---
+```{r Libraries, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+#Libraries
+library(dplyr)
+library(ggplot2)
+library(gmodels)
+library(gtools)
+
+#Load Data
+load("~/Documents/Clemson PhD/Courses/PADM - 8500 - Fundamentals of Homeland Security - Cook/Public Opinion of Privacy/Congress-HLS/Allard_CongressHLS.Rdata")
+
+#Functions
+#"Not In"" function
+"%ni%"<-Negate("%in%")
+
+#Code wrapper function
+wrapper <- function(x, ...) 
+{
+  paste(strwrap(x, ...), collapse = "\n")
+}
+
+```
 
 #Introduction
 This report is an exploratory investigation into the relationship between public opinion and privacy legislation. My goal is to identify some initial relationships that should be investigated further and put some of the topics we discussed to standards of evidence. 
@@ -19,6 +40,8 @@ Why doesn't Congress make new laws to protect privacy?
 Congress pays attention to the issues about which voters care. Legislators develop policy outputs (votes, resolutions, and bills) that maximize the amount of votes they recieve in the next election (Weingast and colleagues, 1981). Members of Congress (MC) and Senators spend their scarce resources on issues of privacy when they have a perceived electoral benefit for them or for their partisans. For Congress to take collective action on something, the a majority--or at least strong plurarlity--of voters in a majority of House Districts must have similar preferences and a majority of voters in upcoming (within 2 years) Senate races must share a preferences. In other words, the distribution of preferences for an issue must be universally distributed across both the area and population of the United States. 
 
 My theory is that preferences about government surveillance and internet privacy are not universally distributed across all Congressional districts and states. Because the people who are concerned about privacy are concentrated into smaller areas, few MCs--compared to the 218 needed to pass a Bill by simple majority--focus scarce resources these issues. On the other hand, Senators represent more universal interests and also feel less electoral pressure, which will allow them to devote scarce resources to particular interests such as governmental surveillance and internet privacy. 
+
+One weakness of this theory is that we know that MCs and Senators focus their efforts on salient issues (Kingdon, 1979). Could MCs and Senators only be focusing their attention on privacy when major focus events happen that bring together? My theory accounts for this because we would expect the MCs and Senators who represent the constituents who care about these issues to be the ones who are most active in taking care of them. 
 
 
 
@@ -38,13 +61,55 @@ It was quite a challenge to find data sets that ask questions about privacy and 
 
 I spent a considerable amount of time searching through Pew's website and finally found two surveys that I could use. I also checked Dataverse and ICPSR but few scholars have studied these topics with randomly sampled studies or with large enough numbers of people to approach a geographically representative sample. In fact, it seems the public opinion scholarship has not really delved into this topic. 
 
-
 ####Public Opinion
 **Pew 2013 Political Survey Dataset**  
-I use this for drawing data out about government surveillance. 
+This data is from a 2013 survey conducted by Pew Research on Politics. The survey was conducted June 12-16, 2013 using a telephone methodology. The sample consists of 1,500 randomly selected adults who were contacted via both landlineand cell phone and were able to answer in English or Spanish. The survey was conducted in all 50 states including Hawaii and Alaska. The thorough methodology of this survey allows me to make generalizations about the country during this point in time because we can assume that preferences are normally distributed. 
+
+I use the question on the survey specifically asks how respondents feel about government collection of their data. This question asks people, "If you knew that the federal government had collected data about your telephone or internet activity would you feel that your personal privacy had been violated, or not?" 
+
+```{r Surveillance Distribution, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+surveil_df %>% 
+  group_by(q42) %>%
+  filter(q42 != "Don't know/Refused (VOL.)") %>% 
+  count() %>%
+  ggplot(aes(x=q42, y=n))+
+  geom_bar(stat="identity", width=.5)+
+  xlab("")+
+  ylab("Responses")+
+  ggtitle(wrapper("If you knew that the federal government had collected data about your telephone or internet activity would you feel that your personal privacy had been violated, or not?", width=80))+
+  theme(plot.title = element_text(family="Trebuchet MS", size=10))
+
+```
+
+
+Interestingly, most of the respondents (~63%) would feel violated if the government had surveilled their telophone or internet activity. Most respondents (~60%) do not believe that the government has collected data about them. Therefore, if we assume a homogenous distribution of these preferences, we should expect on average the individual state distributions to follow a similar pattern. 
+
+```{r Tables on Surveillance, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+surveil_df %>% 
+  group_by(q42) %>%
+  filter(q42 != "Don't know/Refused (VOL.)") %>% 
+  summarise(n=n()) %>% 
+  mutate(prop = n/sum(n))
+
+surveil_df %>% 
+  group_by(q41) %>%
+  filter(q41 != "Don't know/Refused (VOL.)") %>% 
+  summarise(n=n()) %>% 
+  mutate(prop = n/sum(n))
+```
+
+
+
+
 
 **Pew 2018 Core Trends Survey**  
-I use this for drawing data out about Internet usage. 
+I use this for drawing data out about Internet usage. I explore the data below. 
+
+```{r}
+
+
+```
+
 
 ####Congress
 
@@ -58,14 +123,6 @@ I will use ProPublica's Congress API to create a roster of members and tie them 
 
 
 ##Analysis 
-```{r include=FALSE}
-library(dplyr)
-library(ggplot2)
-library(plm)
-library(gtools)
-library()
-```
-
 First, I will use a point pattern analysis at the state level on the public opinion data to identify the distribution of preferences for privacy. 
 
 ```{r}
