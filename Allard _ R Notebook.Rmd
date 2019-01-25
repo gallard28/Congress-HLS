@@ -1,0 +1,113 @@
+---
+title: "An Exploration of Congressional Inaction in Protecting Privacy"  
+author: Grant Allard
+
+output:
+  html_document:
+    df_print: paged
+---
+
+#Introduction
+This report is an exploratory investigation into the relationship between public opinion and privacy legislation. My goal is to identify some initial relationships that should be investigated further and put some of the topics we discussed to standards of evidence. 
+
+
+##Research Question
+Why doesn't Congress make new laws to protect privacy? 
+
+
+##Theory 
+Congress pays attention to the issues about which voters care. Legislators develop policy outputs (votes, resolutions, and bills) that maximize the amount of votes they recieve in the next election (Weingast and colleagues, 1981). Members of Congress (MC) and Senators spend their scarce resources on issues of privacy when they have a perceived electoral benefit for them or for their partisans. For Congress to take collective action on something, the a majority--or at least strong plurarlity--of voters in a majority of House Districts must have similar preferences and a majority of voters in upcoming (within 2 years) Senate races must share a preferences. In other words, the distribution of preferences for an issue must be universally distributed across both the area and population of the United States. 
+
+My theory is that preferences about government surveillance and internet privacy are not universally distributed across all Congressional districts and states. Because the people who are concerned about privacy are concentrated into smaller areas, few MCs--compared to the 218 needed to pass a Bill by simple majority--focus scarce resources these issues. On the other hand, Senators represent more universal interests and also feel less electoral pressure, which will allow them to devote scarce resources to particular interests such as governmental surveillance and internet privacy. 
+
+
+
+##Hypotheses 
+H1a:  The distribution of people with concerns about privacy will not be evenly distributed across the 50 states. 
+
+H1b:  The distribution of people with concerns about privacy will not be evenly distributed across congressional districts. 
+
+H2a: MC in districts with high concentrations of people with negative opinions about government surveillance or people concerned about privacy will be more likely to devote resources to producing legislaton on privacy than other House Members.
+
+H2b: Senators in states with high concentrations of people with negative opinions about government surveillance or people concerned about privacy will be more likely to devote resources to producing legislaton on privacy than other senators. 
+
+H3: The Senate will devote more resources relative to its overall total to producing legislation on privacy than the house. 
+
+##Data
+It was quite a challenge to find data sets that ask questions about privacy and government surveillance. I started with looking at questions on the General Social Survey (GSS) because it is nearly comprehensive in the questions it asks. Unfortunately, privacy is one of the issues it does not cover. Second, I turned to Pew Research because I remembered from prior research that they ask some questions. Originally I wanted to use the Public Trends survey because it is longitudinal which would allow for easier expansion of my project.  But this survey only asks about internet and social media usage and does not ask anything about surveillance. 
+
+I spent a considerable amount of time searching through Pew's website and finally found two surveys that I could use. I also checked Dataverse and ICPSR but few scholars have studied these topics with randomly sampled studies or with large enough numbers of people to approach a geographically representative sample. In fact, it seems the public opinion scholarship has not really delved into this topic. 
+
+
+####Public Opinion
+**Pew 2013 Political Survey Dataset**  
+I use this for drawing data out about government surveillance. 
+
+**Pew 2018 Core Trends Survey**  
+I use this for drawing data out about Internet usage. 
+
+####Congress
+
+I haven't used these data sets a whole lot so there will be some development time in learning how to manage the data although they are machine readable so that is a plus. 
+
+**Bills  **  
+I will pull data for the 115th Congress from the Bill Status Bulk Download portal on the GPO website. Then I analyze the bill for name, and district number. 
+
+**Membership  **  
+I will use ProPublica's Congress API to create a roster of members and tie them to states/districts. 
+
+
+##Analysis 
+```{r include=FALSE}
+library(dplyr)
+library(ggplot2)
+library(plm)
+library(gtools)
+library()
+```
+
+First, I will use a point pattern analysis at the state level on the public opinion data to identify the distribution of preferences for privacy. 
+
+```{r}
+#output from analysis here
+```
+
+Next, I compare using a cross-tab productivity on privacy between MCs from privacy-concerned districts and those from other districts. 
+
+```{r}
+#output from analysis here
+```
+
+Next, I compare using a cross-tab productivity on privacy between Senators from privacy-concerned states and those from other states.  
+
+```{r}
+#output from analysis here
+```
+
+Next, I compare the amount of attention (in terms of # of pages and # of legislations) between Congress and the House.
+
+```{r}
+#output from analysis here
+```
+
+
+##Discussion
+
+
+
+##Limitations
+Data availability is a major issue for being able to do work on issues about public opinion and privacy. I spent nearly 2.5 hours searching for publicly accessible survey data on internet privacy, surveillance, and privacy in general. Survey researchers for the major social science instruments have not paid much attention to this issue except during specific focus events such as the Snowden leaks and the Facebook privacy scandals. Sustained, longitudinal public opinion research is important for many stakeholders in this policy subsystem including MCs, agencies, interest groups, the media, and concerned citizens. Public opinion research allows an additional lens into the American public's preferences for how government and society should balance the tension. While legal scholarship and theoretical arguments may give us an idea about what is possible and how governments ought to behave; ultimately the American political system elevates public choice and those of us who are experts in fields are at the mercy of public opinion in one way or another. 
+
+The scope of this study was a very preliminary analysis. In the future, I need to more fully operationalize the concepts of privacy, surveillance, and MC responsiveness. I used unidimensional measures due to time constraints. The conclusion of this report may not be generalizable beyond the statistical populations I have identified. 
+
+Further, I focused on measures of productivity and do not account for differences in the content being produced. One well-written page can have a huge impact compared to 1,000 poorly written ones. However, following the principle of bounded rationality from Simon (1947), I argue that attention is a limited resource and studying where it is placed is a good measure of what matters to people and what does not. Further, economics tells us that more of something is better. Therefore, we can argue that productivity is a good proxy for whether Congress is paying attention to this issue or not.  
+
+##Conclusion
+Homeland Secuity scholarship and policymaking has largley focused on judicial interpretation and executive agency rulemaking. Notably, Congress has been largely absent from the policy discussion to the consternation of many stakeholders in the homeland security policy subsystem. The goal of this report was to understand why Congress is absent from this discussion. 
+
+I analyzed public opinion data to understand what demographic groups are most concerned about internet privacy and government surveillance. Using surveys conducted by Pew Research , which were randomly sampled and show limited sampling bias compared with the American population, I idenitfy the geographic distribution of preferences for privacy.
+
+Then, I analzyed the relatively legislative productivity of MCs and Senators from legislative units that are concerned with privacy compared to those that are not. 
+Finally, I compared the relative productivity of the House and Senate. 
+
+This exploration, while not finished, already has made a contribution to the literature by establishing that there is a real need for public opinion data on these topics. 
