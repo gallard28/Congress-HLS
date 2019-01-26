@@ -13,6 +13,7 @@ library(sp)
 library(stringr)
 library(gmodels)
 
+
 #for this doc only
 library(foreign)
 
@@ -123,6 +124,7 @@ surveil_sub<-surveil_df %>%
 
 #Congress####
 
+save.image("Allard_CongressHLS.Rdata")
 
 
 

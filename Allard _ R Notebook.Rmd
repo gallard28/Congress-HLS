@@ -99,18 +99,6 @@ surveil_df %>%
 ```
 
 
-
-
-
-**Pew 2018 Core Trends Survey**  
-I use this for drawing data out about Internet usage. I explore the data below. 
-
-```{r}
-
-
-```
-
-
 ####Congress
 
 I haven't used these data sets a whole lot so there will be some development time in learning how to manage the data although they are machine readable so that is a plus. 
